@@ -39,7 +39,7 @@ const onSubmit = (formData: any) => {
                                 here</a>
                         </p>
 
-                    </form>
+                    </Form>
                 </div>
             </div>
         </div>
