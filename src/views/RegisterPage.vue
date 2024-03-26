@@ -1,10 +1,23 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate';
-import BaseInput from '../components/BaseInput/BaseInput.vue';
-import { signUpSchema } from '../utils/vailidate';
+import { useRouter } from 'vue-router';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
-const onSubmit = (formData: any) => {
-    console.log('formData', formData);
+import BaseInput from '../components/BaseInput/BaseInput.vue';
+import { signUpSchema } from '../utils/validate';
+
+const router = useRouter();
+
+const onSubmit = async (formData: any) => {
+    try {
+        const res = await createUserWithEmailAndPassword(getAuth(), formData.email, formData.password);
+        if (res) {
+            router.push({ name: 'LoginPage' })
+        }
+    } catch (e) {
+        console.error(e);
+
+    }
 }
 </script>
 
@@ -34,9 +47,9 @@ const onSubmit = (formData: any) => {
                             class="w-full btn-color text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Create
                             an account</button>
                         <p class="text-sm font-light  text-center">
-                            Already have an account? <a href="/login"
+                            Already have an account? <router-link to="/login"
                                 class="font-medium text-primary-600 hover:underline">Login
-                                here</a>
+                                here</router-link>
                         </p>
 
                     </Form>
@@ -44,4 +57,4 @@ const onSubmit = (formData: any) => {
             </div>
         </div>
     </section>
-</template>
+</template>../utils/validate

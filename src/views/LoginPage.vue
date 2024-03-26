@@ -1,10 +1,27 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate';
-import BaseInput from '../components/BaseInput/BaseInput.vue';
-import { LoginSchema } from '../utils/vailidate';
+// import { useRouter } from 'vue-router';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { ref } from 'vue';
 
-const onSubmit = (formData: any) => {
-  console.log('formData', formData);
+import BaseInput from '../components/BaseInput/BaseInput.vue';
+import BaseButton from '../components/BaseButton/BaseButton.vue';
+import { LoginSchema } from '../utils/validate';
+
+const isSubmit = ref(false);
+
+const onSubmit = async (formData: any) => {
+  try {
+    isSubmit.value = true;
+    const res = await signInWithEmailAndPassword(getAuth(), formData.email, formData.password);
+    if (res) {
+      console.log(res);
+    }
+  } catch (e) {
+    console.error(e);
+  } finally {
+    isSubmit.value = false;
+  }
 }
 </script>
 
@@ -20,15 +37,23 @@ const onSubmit = (formData: any) => {
             <div>
               <BaseInput name="email" type="email" label="Your email" placeholder="account@gmail.com" required />
             </div>
-            <div>
+            <div class="relative">
               <BaseInput name="password" type="password" label="Password" placeholder="••••••••" required />
+              <p class="absolute text-sm font-light  text-center top-0 right-0 underline">
+                <router-link to="/forget-password"
+                  class="font-medium text-primary-600 hover:underline text-primary-color">Reset
+                  password</router-link>
+              </p>
             </div>
-            <button type="submit"
-              class="w-full btn-color text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">Submit</button>
+            <BaseButton type="submit" :isLoading="isSubmit"
+              className="w-full btn-color text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              title="Submit" />
             <p class="text-sm font-light  text-center">
-              Don't have an account? <a href="/register" class="font-medium text-primary-600 hover:underline">Sign up
-                here</a>
+              Don't have an account? <router-link to="/register"
+                class="font-medium text-primary-600 hover:underline">Sign up
+                here</router-link>
             </p>
+
             <div class="flex gap-5 justify-center md:justify-between">
               <button
                 class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
