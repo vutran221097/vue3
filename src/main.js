@@ -1,4 +1,6 @@
 import { createApp } from "vue";
+import { createPinia } from "pinia";
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import "./style.css";
 
 // Import the functions you need from the SDKs you need
@@ -21,4 +23,11 @@ initializeApp(firebaseConfig);
 import App from "./App.vue";
 import router from "./router/index.ts";
 
-createApp(App).use(router).mount("#app");
+const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
+
+const app = createApp(App);
+
+app.use(router);
+app.use(pinia);
+app.mount("#app");

@@ -4,19 +4,19 @@ import { defineProps, toRefs } from 'vue';
 const props = defineProps<{
     title?: string;
     type: 'button' | 'submit' | 'reset';
-    isLoading?: boolean;
+    loading?: boolean;
     className?: string;
 }>();
 
-const { type = 'button', title = 'submit', className = '', isLoading = false } = toRefs(props)
+const { type = 'button', title = 'submit', className = '', loading = false } = toRefs(props)
 
 </script>
 
 <template>
-    <button :type="type" :class="className" :disabled="isLoading">
+    <button :type="type" :class="className" :disabled="loading">
         <div class="flex justify-center items-center">
             {{ title }}
-            <div v-if="isLoading" class="ml-2">
+            <div v-if="loading" class="ml-2">
                 <svg aria-hidden="true" class="w-4 h-4 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
                     viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path

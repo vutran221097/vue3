@@ -7,8 +7,12 @@ import { ref } from 'vue';
 import BaseInput from '../components/BaseInput/BaseInput.vue';
 import BaseButton from '../components/BaseButton/BaseButton.vue';
 import { LoginSchema } from '../utils/validate';
+import { useAuthStore } from '../store/auth';
+import { useRouter } from 'vue-router';
 
 const isSubmit = ref(false);
+const authStore = useAuthStore();
+const router = useRouter();
 
 const onSubmit = async (formData: any) => {
   try {
@@ -16,6 +20,10 @@ const onSubmit = async (formData: any) => {
     const res = await signInWithEmailAndPassword(getAuth(), formData.email, formData.password);
     if (res) {
       console.log(res);
+      console.log(authStore);
+      authStore.setLogin(true);
+      authStore.setUser(res.user);
+      router.push('/');
     }
   } catch (e) {
     console.error(e);
@@ -45,7 +53,7 @@ const onSubmit = async (formData: any) => {
                   password</router-link>
               </p>
             </div>
-            <BaseButton type="submit" :isLoading="isSubmit"
+            <BaseButton type="submit" :loading="isSubmit"
               className="w-full btn-color text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
               title="Submit" />
             <p class="text-sm font-light  text-center">
@@ -53,28 +61,27 @@ const onSubmit = async (formData: any) => {
                 class="font-medium text-primary-600 hover:underline">Sign up
                 here</router-link>
             </p>
-
-            <div class="flex gap-5 justify-center md:justify-between">
-              <button
-                class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
-                <div class="flex items-center">
-                  <img class="w-6 h-6 mr-0 md:mr-4"
-                    src="https://icon2.cleanpng.com/20240111/kah/transparent-google-logo-google-logo-with-blue-green-red-g659f90636ae008.5809308317049560034378.jpg"
-                    alt="Google logo">
-                  <span class="hidden md:block">Sign in with Google</span>
-                </div>
-              </button>
-              <button
-                class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
-                <div class="flex items-center">
-                  <img class="w-6 h-6 mr-0 md:mr-4"
-                    src="https://w7.pngwing.com/pngs/561/460/png-transparent-fb-facebook-facebook-logo-social-media-icon.png"
-                    alt="Google logo">
-                  <span class="hidden md:block">Sign in with Facebook</span>
-                </div>
-              </button>
-            </div>
           </Form>
+          <div class="flex gap-5 justify-center md:justify-between">
+            <button
+              class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+              <div class="flex items-center">
+                <img class="w-6 h-6 mr-0 md:mr-4"
+                  src="https://icon2.cleanpng.com/20240111/kah/transparent-google-logo-google-logo-with-blue-green-red-g659f90636ae008.5809308317049560034378.jpg"
+                  alt="Google logo">
+                <span class="hidden md:block">Sign in with Google</span>
+              </div>
+            </button>
+            <button
+              class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+              <div class="flex items-center">
+                <img class="w-6 h-6 mr-0 md:mr-4"
+                  src="https://w7.pngwing.com/pngs/561/460/png-transparent-fb-facebook-facebook-logo-social-media-icon.png"
+                  alt="Google logo">
+                <span class="hidden md:block">Sign in with Facebook</span>
+              </div>
+            </button>
+          </div>
         </div>
       </div>
     </div>
