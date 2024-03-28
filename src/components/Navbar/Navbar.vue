@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue';
 import { useAuthStore } from '../../store/auth';
+import { signOut, getAuth } from 'firebase/auth';
 
 const authStore = useAuthStore();
 const { login } = toRefs(authStore);
@@ -11,7 +12,15 @@ const toggleDropdown = () => {
 };
 
 const handleLogout = () => {
-    authStore.setLogout();
+    const auth = getAuth();
+    signOut(auth).then(() => {
+        // Sign-out successful.
+        console.log('Sign-out successful');
+        authStore.setLogout();
+    }).catch((error: any) => {
+        // An error happened.
+        console.log(error);
+    });
 };
 
 const mediaQuery = window.matchMedia('(min-width: 768px)');
