@@ -1,13 +1,10 @@
 import { defineStore } from "pinia";
+import { persist } from "./constants";
 
 interface UserState {
   login: boolean;
   user: any;
 }
-
-const persist = {
-  persist: true,
-};
 
 export const useAuthStore = defineStore("auth", {
   // state

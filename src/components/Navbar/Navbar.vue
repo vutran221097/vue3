@@ -50,7 +50,7 @@ if (!mediaQuery.matches) {
             <div v-if="login" :class="{ 'hidden': !dropdownOpen, 'block top-14 left-0': dropdownOpen }"
                 class="w-full absolute md:static md:block md:w-auto" id="navbar-default">
                 <ul
-                    class="font-medium flex items-center flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg main-color md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white">
+                    class="font-medium flex items-center flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg main-color md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
                     <li>
 
                         <router-link to="/profile"
@@ -70,7 +70,7 @@ if (!mediaQuery.matches) {
             <div v-else :class="{ 'hidden': !dropdownOpen, 'block top-14 left-0': dropdownOpen }"
                 class="w-full absolute md:static md:block md:w-auto" id="navbar-default">
                 <ul
-                    class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg main-color md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white">
+                    class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg main-color md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
                     <li>
                         <router-link to="/login"
                             class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Login</router-link>

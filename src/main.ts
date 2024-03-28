@@ -1,12 +1,13 @@
-import { createApp } from "vue";
+import { createApp, App as AppType } from "vue";
+import { Router } from "vue-router";
 import { createPinia } from "pinia";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
+import { initializeApp } from "firebase/app";
+
+import App from "./App.vue";
+import router from "./router/index.ts";
 import "./style.css";
 
-// Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDyI3JtfYCzNufJ-TwRHD2CAhGSRStCzz4",
@@ -20,14 +21,12 @@ const firebaseConfig = {
 // Initialize Firebase
 initializeApp(firebaseConfig);
 
-import App from "./App.vue";
-import router from "./router/index.ts";
-
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
 
-const app = createApp(App);
+const app: AppType<Element> = createApp(App);
+const routerInstance: Router = router;
 
-app.use(router);
+app.use(routerInstance);
 app.use(pinia);
 app.mount("#app");

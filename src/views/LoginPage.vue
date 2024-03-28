@@ -19,8 +19,6 @@ const onSubmit = async (formData: any) => {
     isSubmit.value = true;
     const res = await signInWithEmailAndPassword(getAuth(), formData.email, formData.password);
     if (res) {
-      console.log(res);
-      console.log(authStore);
       authStore.setLogin(true);
       authStore.setUser(res.user);
       router.push('/');
@@ -54,7 +52,7 @@ const onSubmit = async (formData: any) => {
               </p>
             </div>
             <BaseButton type="submit" :loading="isSubmit"
-              className="w-full btn-color text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+              className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center btn-color"
               title="Submit" />
             <p class="text-sm font-light  text-center">
               Don't have an account? <router-link to="/register"

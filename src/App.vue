@@ -20,14 +20,14 @@ import Navbar from './components/Navbar/Navbar.vue';
 }
 
 .main-color {
-  background-color: #F4F3F2;
+  background-color: #F4F3F2 !important;
 }
 
 .btn-color {
-  background-color: #B78A27;
+  background-color: #B78A27 !important;
 }
 
 .text-primary-color {
-  color: #B78A27;
+  color: #B78A27 !important;
 }
 </style>
