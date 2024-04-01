@@ -136,7 +136,6 @@ export default router;
 
 <template>
   <router-link to="/home">Home</router-link>
-  <router-link to="{ name: 'HomePage' }">Home</router-link>
 </template>
 ```
 

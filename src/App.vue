@@ -7,4 +7,6 @@
 
 <script lang="ts" setup>
 import Navbar from './components/Navbar/Navbar.vue';
+import "./style.css";
+import "vue3-toastify/dist/index.css";
 </script>

@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { ref, toRefs } from 'vue';
-import { useAuthStore } from '../../store/auth';
 import { signOut, getAuth } from 'firebase/auth';
 
+import { useAuthStore } from '../../store/auth';
+import BaseModal from '../BaseModal/BaseModal.vue';
+
 const authStore = useAuthStore();
-const { login } = toRefs(authStore);
+const { login, user } = toRefs(authStore);
 const dropdownOpen = ref(false);
+const confirmLogoutModal = ref(false);
 
 const toggleDropdown = () => {
     dropdownOpen.value = !dropdownOpen.value;
@@ -15,13 +18,21 @@ const handleLogout = () => {
     const auth = getAuth();
     signOut(auth).then(() => {
         // Sign-out successful.
-        console.log('Sign-out successful');
         authStore.setLogout();
     }).catch((error: any) => {
         // An error happened.
         console.log(error);
     });
+    confirmLogoutModal.value = false;
 };
+
+const handleOpenModalLogout = () => {
+    confirmLogoutModal.value = true;
+}
+
+const handleCloseModalLogout = () => {
+    confirmLogoutModal.value = false;
+}
 
 const mediaQuery = window.matchMedia('(min-width: 768px)');
 if (!mediaQuery.matches) {
@@ -30,6 +41,9 @@ if (!mediaQuery.matches) {
 </script>
 
 <template>
+    <BaseModal :open="confirmLogoutModal" :handleOk="handleLogout" :handleClose="handleCloseModalLogout">
+        Are you sure you want to logout?
+    </BaseModal>
     <nav class="bg-main border-gray-200 px-10">
         <div class="relative max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <router-link to="/" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -55,19 +69,20 @@ if (!mediaQuery.matches) {
                             class="py-2 px-3 flex items-center gap-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">
                             <span>
                                 <img src="/src/assets/upload.svg" class="w-8 h-8 rounded-full" alt="Upload Book" />
-                            </span> Upload Book
+                            </span> Upload
                         </router-link>
                     </li>
                     <li>
                         <router-link to="/profile"
                             class="py-2 px-3 flex items-center gap-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">
                             <span>
-                                <img src="/src/assets/user.svg" class="w-8 h-8 rounded-full" alt="User Profile" />
+                                <img :src="user.photoURL || `https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png`"
+                                    class="w-8 h-8 rounded-full" alt="User Profile" />
                             </span> Profile
                         </router-link>
                     </li>
                     <li>
-                        <p @click="handleLogout"
+                        <p @click="handleOpenModalLogout"
                             class="cursor-pointer py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">
                             Logout</p>
                     </li>

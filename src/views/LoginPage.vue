@@ -3,17 +3,28 @@ import { Form } from 'vee-validate';
 import { useRouter } from 'vue-router';
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, FacebookAuthProvider } from "firebase/auth";
 import { ref, onMounted, toRefs } from 'vue';
+import { toast } from "vue3-toastify";
+
 
 import BaseInput from '../components/BaseInput/BaseInput.vue';
 import BaseButton from '../components/BaseButton/BaseButton.vue';
 import { LoginSchema } from '../utils/validate';
 import { useAuthStore } from '../store/auth';
+import { createUserWithOauth2 } from '../services/userService';
+import { ErrorMessage } from '../utils/error';
 
 const isSubmit = ref(false);
 const authStore = useAuthStore();
 const router = useRouter();
 
 const { login } = toRefs(authStore);
+
+const message = window.history.state?.message;
+if (message) {
+  toast.success(message)
+}
+console.log(window.history.state);
+
 
 onMounted(() => {
   if (login.value) {
@@ -23,7 +34,8 @@ onMounted(() => {
 
 const setUser = (data: any) => {
   authStore.setLogin(true);
-  authStore.setUser(data.user);
+  authStore.setUser(data.user.providerData[0]);
+  createUserWithOauth2(data.user)
   router.push('/');
 }
 
@@ -35,7 +47,7 @@ const signInWithGoogle = async () => {
       setUser(res)
     }
   } catch (e) {
-    console.error(e);
+    ErrorMessage(e)
   }
 }
 
@@ -47,7 +59,7 @@ const signInWithFacebook = async () => {
       setUser(res)
     }
   } catch (e) {
-    console.error(e);
+    ErrorMessage(e)
   }
 }
 
@@ -59,7 +71,7 @@ const onSubmit = async (formData: any) => {
       setUser(res)
     }
   } catch (e) {
-    console.error(e);
+    ErrorMessage(e)
   } finally {
     isSubmit.value = false;
   }

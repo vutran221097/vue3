@@ -3,23 +3,14 @@ import { Router } from "vue-router";
 import { createPinia } from "pinia";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 import { initializeApp } from "firebase/app";
+import { getFirestore } from "firebase/firestore";
 
 import App from "./App.vue";
 import router from "./router/index.ts";
-import "./style.css";
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDyI3JtfYCzNufJ-TwRHD2CAhGSRStCzz4",
-  authDomain: "book-203e4.firebaseapp.com",
-  projectId: "book-203e4",
-  storageBucket: "book-203e4.appspot.com",
-  messagingSenderId: "913383815703",
-  appId: "1:913383815703:web:c7b842647ec0641454ba52",
-};
+import { firebaseConfig } from "./firebase/config.ts";
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
+const firebaseApp = initializeApp(firebaseConfig);
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
@@ -30,3 +21,5 @@ const routerInstance: Router = router;
 app.use(routerInstance);
 app.use(pinia);
 app.mount("#app");
+
+export const db = getFirestore(firebaseApp);
