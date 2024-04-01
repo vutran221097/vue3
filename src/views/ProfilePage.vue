@@ -1,3 +1,3 @@
 <template>
-    <h1>Profile page</h1>
+    <p class="text-3xl font-bold">Profile page</p>
 </template>

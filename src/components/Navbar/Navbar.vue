@@ -30,8 +30,7 @@ if (!mediaQuery.matches) {
 </script>
 
 <template>
-
-    <nav class="main-color border-gray-200 ">
+    <nav class="bg-main border-gray-200 px-10">
         <div class="relative max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <router-link to="/" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="/src/assets/logo.png" class="h-8" alt="Flowbite Logo" />
@@ -50,9 +49,16 @@ if (!mediaQuery.matches) {
             <div v-if="login" :class="{ 'hidden': !dropdownOpen, 'block top-14 left-0': dropdownOpen }"
                 class="w-full absolute md:static md:block md:w-auto" id="navbar-default">
                 <ul
-                    class="font-medium flex items-center flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg main-color md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
+                    class="font-medium flex items-center flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-main md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
                     <li>
-
+                        <router-link to="/upload-book"
+                            class="py-2 px-3 flex items-center gap-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">
+                            <span>
+                                <img src="/src/assets/upload.svg" class="w-8 h-8 rounded-full" alt="Upload Book" />
+                            </span> Upload Book
+                        </router-link>
+                    </li>
+                    <li>
                         <router-link to="/profile"
                             class="py-2 px-3 flex items-center gap-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">
                             <span>
@@ -70,7 +76,7 @@ if (!mediaQuery.matches) {
             <div v-else :class="{ 'hidden': !dropdownOpen, 'block top-14 left-0': dropdownOpen }"
                 class="w-full absolute md:static md:block md:w-auto" id="navbar-default">
                 <ul
-                    class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg main-color md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
+                    class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-main md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0">
                     <li>
                         <router-link to="/login"
                             class="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">Login</router-link>

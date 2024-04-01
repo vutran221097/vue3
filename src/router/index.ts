@@ -25,6 +25,14 @@ const routes = [
       requiresAuth: true,
     },
   },
+  {
+    path: "/upload-book",
+    name: "UploadBookPage",
+    component: () => import("../views/UploadBookPage.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
 ];
 
 const router = createRouter({
