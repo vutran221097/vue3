@@ -6,7 +6,7 @@ import { useAuthStore } from '../../store/auth';
 import BaseModal from '../BaseModal/BaseModal.vue';
 
 const authStore = useAuthStore();
-const { login, user } = toRefs(authStore);
+const { login, userInfo } = toRefs(authStore);
 const dropdownOpen = ref(false);
 const confirmLogoutModal = ref(false);
 
@@ -76,9 +76,9 @@ if (!mediaQuery.matches) {
                         <router-link to="/profile"
                             class="py-2 px-3 flex items-center gap-2 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0">
                             <span>
-                                <img :src="user.photoURL || `https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png`"
+                                <img :src="userInfo?.photoURL || `https://w7.pngwing.com/pngs/178/595/png-transparent-user-profile-computer-icons-login-user-avatars-thumbnail.png`"
                                     class="w-8 h-8 rounded-full" alt="User Profile" />
-                            </span> Profile
+                            </span> {{ userInfo?.displayName || userInfo?.email || 'Profile' }}
                         </router-link>
                     </li>
                     <li>

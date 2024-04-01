@@ -18,23 +18,21 @@ const authStore = useAuthStore();
 const router = useRouter();
 
 const { login } = toRefs(authStore);
-
 const message = window.history.state?.message;
-if (message) {
-  toast.success(message)
-}
-console.log(window.history.state);
 
 
 onMounted(() => {
   if (login.value) {
     router.push('/');
   }
+  if (message) {
+    toast.success(message)
+  }
 });
 
 const setUser = (data: any) => {
   authStore.setLogin(true);
-  authStore.setUser(data.user.providerData[0]);
+  authStore.setUserUid(data.user.uid);
   createUserWithOauth2(data.user)
   router.push('/');
 }

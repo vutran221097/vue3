@@ -1,5 +1,5 @@
 import { db } from "../main";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, setDoc, getDoc } from "firebase/firestore";
 import { ROLE } from "./constant";
 
 export const createUserWithOauth2 = (data: any) => {
@@ -14,6 +14,20 @@ export const postUser = async (data: any) => {
       ...data.providerData[0],
       role: ROLE.USER,
     });
+  } catch (e) {
+    console.error(e);
+  }
+};
+
+export const getUser = async (uid: string) => {
+  try {
+    console.log(db);
+    const docRef = doc(db, "users", uid);
+
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data();
+    }
   } catch (e) {
     console.error(e);
   }

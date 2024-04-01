@@ -3,20 +3,22 @@ import { persist } from "./constants";
 
 interface UserState {
   login: boolean;
-  user: any;
+  userUid: string;
+  userInfo: any;
 }
+
+const initState = {
+  login: false,
+  userUid: "",
+  userInfo: null,
+};
 
 export const useAuthStore = defineStore("auth", {
   // state
-  state: (): UserState => ({
-    login: false,
-    user: null,
-  }),
+  state: (): UserState => initState,
   // getters
   getters: {
     // use to format state before return
-    getLogin: (state: any) => state.login,
-    getUser: (state: any) => state.user,
   },
   actions: {
     // save login status
@@ -24,15 +26,21 @@ export const useAuthStore = defineStore("auth", {
       this.login = value;
     },
 
+    // save user uid
+    setUserUid(uid: string): void {
+      this.userUid = uid;
+    },
+
     // save user info
     setUser(user: any): void {
-      this.user = user;
+      this.userInfo = user;
     },
 
     // log out
     setLogout(): void {
       this.login = false;
-      this.user = null;
+      this.userUid = "";
+      this.userInfo = null;
     },
   },
   ...persist,

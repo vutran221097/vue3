@@ -11,6 +11,7 @@ import { firebaseConfig } from "./firebase/config.ts";
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
+export const db = getFirestore(firebaseApp);
 
 const pinia = createPinia();
 pinia.use(piniaPluginPersistedstate);
@@ -18,8 +19,4 @@ pinia.use(piniaPluginPersistedstate);
 const app: AppType<Element> = createApp(App);
 const routerInstance: Router = router;
 
-app.use(routerInstance);
-app.use(pinia);
-app.mount("#app");
-
-export const db = getFirestore(firebaseApp);
+app.use(routerInstance).use(pinia).mount("#app");
