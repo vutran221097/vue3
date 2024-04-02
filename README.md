@@ -154,17 +154,17 @@ const routes = [
   {
     path: "/home",
     name: "HomePage",
-    component: () => import("../views/HomePage.vue"),
+    component: () => import("@/views/HomePage.vue"),
   },
   {
     path: "/login",
     name: "LoginPage",
-    component: () => import("../views/LoginPage.vue"),
+    component: () => import("@/views/LoginPage.vue"),
   },
   {
     path: "/profile",
     name: "ProfilePage",
-    component: () => import("../views/ProfilePage.vue"),
+    component: () => import("@/views/ProfilePage.vue"),
     meta: {
       requiresAuth: true,
     },

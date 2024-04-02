@@ -6,12 +6,12 @@ import { ref, onMounted, toRefs } from 'vue';
 import { toast } from "vue3-toastify";
 
 
-import BaseInput from '../components/BaseInput/BaseInput.vue';
-import BaseButton from '../components/BaseButton/BaseButton.vue';
-import { LoginSchema } from '../utils/validate';
-import { useAuthStore } from '../store/auth';
-import { createUserWithOauth2 } from '../services/userService';
-import { ErrorMessage } from '../utils/error';
+import BaseInput from '@/components/BaseInput/BaseInput.vue';
+import BaseButton from '@/components/BaseButton/BaseButton.vue';
+import { LoginSchema } from '@/utils/validate';
+import { useAuthStore } from '@/store/auth';
+import { createUserWithOauth2 } from '@/services/userService';
+import { ErrorMessage } from '@/utils/error';
 
 const isSubmit = ref(false);
 const authStore = useAuthStore();

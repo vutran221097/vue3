@@ -4,11 +4,11 @@ import { Form } from 'vee-validate';
 import { useRouter } from 'vue-router';
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
-import BaseInput from '../components/BaseInput/BaseInput.vue';
-import BaseButton from '../components/BaseButton/BaseButton.vue';
-import { signUpSchema } from '../utils/validate';
-import { postUser } from '../services/userService.ts';
-import { ErrorMessage } from '../utils/error';
+import BaseInput from '@/components/BaseInput/BaseInput.vue';
+import BaseButton from '@/components/BaseButton/BaseButton.vue';
+import { signUpSchema } from '@/utils/validate';
+import { postUser } from '@/services/userService.ts';
+import { ErrorMessage } from '@/utils/error';
 
 const router = useRouter();
 const isSubmit = ref(false);
@@ -70,4 +70,4 @@ const onSubmit = async (formData: any) => {
             </div>
         </div>
     </section>
-</template>../firebase/userservice
+</template>

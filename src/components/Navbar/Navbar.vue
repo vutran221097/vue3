@@ -2,8 +2,8 @@
 import { ref, toRefs } from 'vue';
 import { signOut, getAuth } from 'firebase/auth';
 
-import { useAuthStore } from '../../store/auth';
-import BaseModal from '../BaseModal/BaseModal.vue';
+import { useAuthStore } from '@/store/auth';
+import BaseModal from '@/components/BaseModal/BaseModal.vue';
 
 const authStore = useAuthStore();
 const { login, userInfo } = toRefs(authStore);

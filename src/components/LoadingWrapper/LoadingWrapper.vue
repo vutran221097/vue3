@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { toRefs } from 'vue';
-import { useAuthStore } from '../../store/auth';
-import { getUser } from '../../services/userService';
+import { useAuthStore } from '@/store/auth';
+import { getUser } from '@/services/userService';
 
 const authStore = useAuthStore();
 const { login, userUid, userInfo } = toRefs(authStore);
@@ -11,8 +11,7 @@ const handleInitApp = async () => {
     userInfo.value = user
 }
 
-
-if (login?.value) {
+if (login.value) {
     handleInitApp()
 }
 
