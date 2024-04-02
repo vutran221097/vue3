@@ -84,19 +84,99 @@ Reading Book App
 </script>
 ```
 
-## State
+## Reactivity core
 
 ```jsx
 import { ref, reactive } from "vue";
 
+// single state
 const numberState = ref(0);
+
+// multiple state
 const userState = reactive({
   id:'190ff08c-2504-4ce6-8667-b760423bec97'
   name: "user",
   phone: "19001009",
   email: "use@gmail.com",
 });
+
+// computed
+// readonly computed ref
+const count = ref(1)
+const plusOne = computed(() => count.value + 1)
+console.log(plusOne.value) // 2
+
+// read and write computed ref
+const count = ref(1)
+const plusOne = computed({
+  get: () => count.value + 1,
+  set: (val) => {
+    count.value = val - 1
+  }
+})
+
+plusOne.value = 1
+console.log(count.value) // 0
+
+// readonly
+const copy = readonly(1)
 ```
+
+- Watch
+
+```html
+<template>
+  <div>
+    <p>Count: {{ count }}</p>
+    <button @click="increment">Increment</button>
+  </div>
+</template>
+<script setup>
+  import {
+    ref,
+    watch,
+    watchEffect,
+    watchPostEffect,
+    watchSyncEffect,
+  } from "vue";
+
+  // Define a reactive variable
+  const count = ref(0);
+
+  // Function to increment count
+  const increment = () => {
+    count.value++;
+  };
+
+  // Watch: Logs when count changes
+  watch(count, (newValue, oldValue) => {
+    console.log(`watch - count has changed from ${oldValue} to ${newValue}`);
+  });
+
+  // WatchEffect: Logs the current value of count
+  watchEffect(() => {
+    console.log(`watchEffect - count is currently ${count.value}`);
+  });
+
+  // WatchPostEffect: Logs the current value of count after each render
+  watchPostEffect(() => {
+    console.log(
+      `watchPostEffect - count is currently ${count.value} (after render)`
+    );
+  });
+
+  // WatchSyncEffect: Logs the current value of count synchronously with set
+  watchSyncEffect(() => {
+    console.log(
+      `watchSyncEffect - count is currently ${count.value} (sync with set)`
+    );
+  });
+</script>
+```
+
+- WatchEffect: Runs asynchronously after the render cycle, suitable for most side effects that don't require immediate synchronization with data mutations.
+- WatchSyncEffect: Runs synchronously with the data mutation that triggered it, ensuring immediate synchronization with reactive data changes. Ideal for side effects that need to be executed immediately after reactive data mutations.
+- In summary, watchSyncEffect provides a way to perform synchronous side
 
 ## Template syntax and Binding data
 
@@ -115,8 +195,25 @@ const userState = reactive({
 ## Event
 
 ```html
-<div @click="count">Increase</div>
+<button v-on:click="count"></button>
+
+<button @click="count"></button>
+
+<button @click.stop="count"></button>
 ```
+
+- Modifiers
+
+* .stop - call event.stopPropagation().
+* .prevent - call event.preventDefault().
+* .capture - add event listener in capture mode.
+* .self - only trigger handler if event was dispatched from this element.
+* .{keyAlias} - only trigger handler on certain keys.
+* .once - trigger handler at most once.
+* .left - only trigger handler for left button mouse events.
+* .right - only trigger handler for right button mouse events.
+* .middle - only trigger handler for middle button mouse events.
+* .passive - attaches a DOM event with { passive: true }.
 
 ## List rendering
 
