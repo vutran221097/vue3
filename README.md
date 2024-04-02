@@ -231,6 +231,10 @@ export default router;
 </template>
 ```
 
+## Demo Project:
+
+- Github: https://github.com/vutran221097/vue3
+
 ## Document
 
 - Basic Vue3: https://learnvue.co/LearnVue-Vue-3-Cheatsheet.pdf
