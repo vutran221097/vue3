@@ -89,18 +89,45 @@ Reading Book App
 ```jsx
 import { ref, reactive } from "vue";
 
-const state = ref(0);
-const state = reactive({
+const numberState = ref(0);
+const userState = reactive({
+  id:'190ff08c-2504-4ce6-8667-b760423bec97'
   name: "user",
   phone: "19001009",
   email: "use@gmail.com",
 });
 ```
 
+## Template syntax and Binding data
+
+```html
+<div :id="userState.id">{{userState.name}}</div>
+```
+
+## Conditional rendering
+
+```html
+<div v-if="date == today">...</div>
+<div v-else-if="!done">...</div>
+<div v-else>...</div>
+```
+
+## Event
+
+```html
+<div @click="count">Increase</div>
+```
+
+## List rendering
+
+```html
+<li v-for="(item, index) in items">{{ index }} : {{ item }}</li>
+```
+
 ## Props
 
 ```html
-<script setup lang="ts" props="props">
+<script setup lang="ts">
   import { defineProps, toRefs } from "vue";
 
   const props = defineProps<{
