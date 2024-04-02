@@ -1,40 +1,39 @@
 # Vue 3
 
-reading book
+Reading Book App
 
-## Props
+## Require
+
+- Vite requires Node.js version 18+. 20+.
+
+## Create project
+
+- yarn create vite my-vue-app --template vue-ts
+
+## Install package
+
+- vue-router
+- yup, vee-validate (optional)
+- pinia, pinia-plugin-persistedstate (optional)
+- axios, tailwind, firebase, vue3-toastify,...
+
+## Start project
+
+- npm run dev / yarn dev
+
+## Vue file structure
 
 ```html
-<script setup lang="ts" props="props">
-  import { defineProps, toRefs } from "vue";
+<template> Your html ui</template>
 
-  const props = defineProps<{
-    title?: string;
-    type: "button" | "submit" | "reset";
-    isLoading?: boolean;
-    className?: string;
-  }>();
-
-  const {
-    type = "button",
-    title = "submit",
-    className = "",
-    isLoading = false,
-  } = toRefs(props);
+<script lang="ts">
+  Your logic code
 </script>
+
+<style scoped></style>
 ```
 
 ## Script vs script setup
-
-- Template
-`<template>
-  <div>
-    <ul>
-      <li v-for="item in items" :key="item.id">{{ item.name }}</li>
-    </ul>
-    <button @click="addItem">Add Item</button>
-  </div>
-</template>`
 
 - Script
 
@@ -85,6 +84,41 @@ reading book
 </script>
 ```
 
+## State
+
+```jsx
+import { ref, reactive } from "vue";
+
+const state = ref(0);
+const state = reactive({
+  name: "user",
+  phone: "19001009",
+  email: "use@gmail.com",
+});
+```
+
+## Props
+
+```html
+<script setup lang="ts" props="props">
+  import { defineProps, toRefs } from "vue";
+
+  const props = defineProps<{
+    title?: string;
+    type: "button" | "submit" | "reset";
+    isLoading?: boolean;
+    className?: string;
+  }>();
+
+  const {
+    type = "button",
+    title = "submit",
+    className = "",
+    isLoading = false,
+  } = toRefs(props);
+</script>
+```
+
 ## Router
 
 ```jsx
@@ -95,8 +129,38 @@ const routes = [
     name: "HomePage",
     component: () => import("../views/HomePage.vue"),
   },
+  {
+    path: "/login",
+    name: "LoginPage",
+    component: () => import("../views/LoginPage.vue"),
+  },
+  {
+    path: "/profile",
+    name: "ProfilePage",
+    component: () => import("../views/ProfilePage.vue"),
+    meta: {
+      requiresAuth: true,
+    },
+  },
 ];
+
 const router = createRouter({ history: createWebHistory(), routes });
+
+// protect router
+// can add more condition in meta to check
+router.beforeEach((to, _, next) => {
+  const auth = useAuthStore();
+  const { login } = auth;
+  if (to.matched.some((record) => record.meta.requiresAuth)) {
+    if (login) {
+      next();
+    } else {
+      next({ name: "LoginPage" });
+    }
+  } else {
+    next();
+  }
+});
 export default router;
 ```
 
@@ -115,6 +179,7 @@ export default router;
     router.push({ path: "/users/eduardo" });
 
     // named route with params to let the router build the url
+    // path: '/user/:username',
     router.push({ name: "user", params: { username: "eduardo" } });
 
     // with query, resulting in /register?plan=private
@@ -129,8 +194,8 @@ export default router;
       state: { customData: "your custom data" }, // Custom state object
     });
 
-    // how access state through navigate
-    console.log(window.history.state);
+    // how to access state through navigate
+    console.log(window.history.state.customData);
   };
 </script>
 
@@ -142,7 +207,6 @@ export default router;
 ## Document
 
 - Basic Vue3: https://learnvue.co/LearnVue-Vue-3-Cheatsheet.pdf
-- Firebase Auth: https://firebase.google.com/docs/auth/web/start?hl=vi
 
 ## Recommended IDE Setup
 
