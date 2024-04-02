@@ -1,5 +1,5 @@
-import { getAuth } from "firebase/auth";
 import { createRouter, createWebHistory } from "vue-router";
+import { useAuthStore } from "../store/auth";
 
 const routes = [
   {
@@ -41,8 +41,10 @@ const router = createRouter({
 });
 
 router.beforeEach((to, _, next) => {
+  const auth = useAuthStore();
+  const { login } = auth;
   if (to.matched.some((record) => record.meta.requiresAuth)) {
-    if (getAuth().currentUser) {
+    if (login) {
       next();
     } else {
       next({ name: "LoginPage" });
