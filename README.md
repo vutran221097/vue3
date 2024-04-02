@@ -182,42 +182,42 @@ const copy = readonly(1)
 
 - beforeCreate -> Use setup() instead:
 
-* In the options API, beforeCreate hook is called before the instance is initialized, at the earliest stage of the component's lifecycle.
-* In the Composition API, you can perform similar initialization logic using the setup() function.
+** In the options API, beforeCreate hook is called before the instance is initialized, at the earliest stage of the component's lifecycle.
+** In the Composition API, you can perform similar initialization logic using the setup() function.
 
 - created -> Use setup() instead:
 
-* Similar to beforeCreate, created hook in the options API is called after the instance has been created but before the component is mounted to the DOM.
-* You can achieve the same behavior by performing initialization logic within the setup() function.
+** Similar to beforeCreate, created hook in the options API is called after the instance has been created but before the component is mounted to the DOM.
+** You can achieve the same behavior by performing initialization logic within the setup() function.
 
 - onBeforeMount -> Before mounting DOM:
 
-* onBeforeMount hook is called right before the component is mounted to the DOM.
-* It's useful for performing tasks or setting up state that needs to be in place before the component is rendered.
+** onBeforeMount hook is called right before the component is mounted to the DOM.
+** It's useful for performing tasks or setting up state that needs to be in place before the component is rendered.
 
 - onMounted -> DOM can be accessed:
 
-* onMounted hook is called after the component has been mounted to the DOM.
-* It's the appropriate place to perform tasks that require access to the DOM elements.
+** onMounted hook is called after the component has been mounted to the DOM.
+** It's the appropriate place to perform tasks that require access to the DOM elements.
 
 - onBeforeUpdate -> Reactive data changes:
 
-* onBeforeUpdate hook is called before a component is re-rendered due to reactive data changes.
-* It's useful for performing tasks or calculations based on state changes before the component updates.
+** onBeforeUpdate hook is called before a component is re-rendered due to reactive data changes.
+** It's useful for performing tasks or calculations based on state changes before the component updates.
 
 - onUpdated -> DOM has been updated:
 
-* onUpdated hook is called after the component has been re-rendered due to reactive data changes.
-* It's useful for performing tasks that need to be executed after the component has been updated and the DOM has been patched.
+** onUpdated hook is called after the component has been re-rendered due to reactive data changes.
+** It's useful for performing tasks that need to be executed after the component has been updated and the DOM has been patched.
 
 - onBeforeUnmount -> Component still complete:
-  *onBeforeUnmount hook is called right before the component is unmounted.
-  *It's useful for performing cleanup tasks or releasing resources before the component is removed from the DOM.
+  ** onBeforeUnmount hook is called right before the component is unmounted.
+  ** It's useful for performing cleanup tasks or releasing resources before the component is removed from the DOM.
 
 - onUnmounted -> Teardown complete:
 
-* onUnmounted hook is called after the component has been unmounted and its teardown is complete.
-* It's useful for performing final cleanup tasks or releasing any remaining resources associated with the component.
+** onUnmounted hook is called after the component has been unmounted and its teardown is complete.
+** It's useful for performing final cleanup tasks or releasing any remaining resources associated with the component.
 
 ## Template syntax and Binding data
 
