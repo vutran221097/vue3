@@ -180,8 +180,6 @@ const copy = readonly(1)
 
 ## Vue Lifecycle Hook
 
-`
-
 - beforeCreate -> Use setup() instead:
 
   - In the options API, beforeCreate hook is called before the instance is initialized, at the earliest stage of the component's lifecycle.
@@ -221,7 +219,6 @@ const copy = readonly(1)
 
   - onUnmounted hook is called after the component has been unmounted and its teardown is complete.
   - It's useful for performing final cleanup tasks or releasing any remaining resources associated with the component.
-    `
 
 ## Template syntax and Binding data
 
