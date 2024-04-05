@@ -1,6 +1,7 @@
-import { db } from "../main";
-import { collection, doc, setDoc, getDoc } from "firebase/firestore";
-import { ROLE } from "./constant";
+import { db } from "@/main";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { DATA_BASE, ROLE } from "./constant";
+import { getDocumentById } from "./BaseService";
 
 export const createUserWithOauth2 = (data: any) => {
   const { metadata } = data;
@@ -10,7 +11,7 @@ export const createUserWithOauth2 = (data: any) => {
 
 export const postUser = async (data: any) => {
   try {
-    await setDoc(doc(collection(db, "users"), data.uid), {
+    await setDoc(doc(collection(db, DATA_BASE.USERS), data.uid), {
       ...data.providerData[0],
       role: ROLE.USER,
     });
@@ -19,16 +20,6 @@ export const postUser = async (data: any) => {
   }
 };
 
-export const getUser = async (uid: string) => {
-  try {
-    console.log(db);
-    const docRef = doc(db, "users", uid);
-
-    const docSnap = await getDoc(docRef);
-    if (docSnap.exists()) {
-      return docSnap.data();
-    }
-  } catch (e) {
-    console.error(e);
-  }
+export const getUser = (uid: string) => {
+  getDocumentById(DATA_BASE.USERS, uid);
 };
