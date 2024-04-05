@@ -11,7 +11,7 @@ import BaseButton from '@/components/BaseButton/BaseButton.vue';
 import { LoginSchema } from '@/utils/validate';
 import { useAuthStore } from '@/store/auth';
 import { createUserWithOauth2 } from '@/services/userService';
-import { ErrorMessage } from '@/utils/error';
+import { ErrorMessage } from '@/utils/utils';
 
 const isSubmit = ref(false);
 const authStore = useAuthStore();
@@ -129,4 +129,4 @@ const onSubmit = async (formData: any) => {
       </div>
     </div>
   </section>
-</template>
+</template>@/utils/utils

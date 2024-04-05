@@ -8,7 +8,7 @@ import BaseInput from '@/components/BaseInput/BaseInput.vue';
 import BaseButton from '@/components/BaseButton/BaseButton.vue';
 import { signUpSchema } from '@/utils/validate';
 import { postUser } from '@/services/userService.ts';
-import { ErrorMessage } from '@/utils/error';
+import { ErrorMessage } from '@/utils/utils';
 
 const router = useRouter();
 const isSubmit = ref(false);
@@ -70,4 +70,4 @@ const onSubmit = async (formData: any) => {
             </div>
         </div>
     </section>
-</template>
+</template>@/utils/utils

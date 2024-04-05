@@ -28,3 +28,10 @@ export const signUpSchema = yup.object().shape({
       return value === this.parent.password;
     }),
 });
+
+export const bookSchema = yup.object().shape({
+  bookName: yup.string().required("This field is required."),
+  author: yup.string().required("This field is required."),
+  genre: yup.string().required("This field is required."),
+  releaseYear: yup.number().notRequired(),
+});

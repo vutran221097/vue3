@@ -6,13 +6,15 @@ import {
   getDocs,
   setDoc,
   updateDoc,
+  query,
 } from "firebase/firestore";
 import { db } from "@/main";
 
 // add document
 export const addDocument = async (collectionPath: string, data: any) => {
   try {
-    await setDoc(doc(db, collectionPath), data);
+    debugger;
+    await setDoc(doc(collection(db, collectionPath)), data);
   } catch (error) {
     console.error("Error adding document: ", error);
   }
@@ -36,10 +38,15 @@ export const getDocumentById = async (
   }
 };
 
-// get all documents in collection
-export const getAllDocuments = async (collectionPath: string) => {
+// get all documents in collection with condition
+export const getAllDocuments = async (
+  collectionPath: string,
+  condition?: any
+) => {
   try {
-    const querySnapshot = await getDocs(collection(db, collectionPath));
+    const querySnapshot = await getDocs(
+      query(collection(db, collectionPath), condition)
+    );
     return querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   } catch (error) {
     console.error("Error getting documents: ", error);
