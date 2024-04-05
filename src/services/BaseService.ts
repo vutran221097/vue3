@@ -13,7 +13,6 @@ import { db } from "@/main";
 // add document
 export const addDocument = async (collectionPath: string, data: any) => {
   try {
-    debugger;
     await setDoc(doc(collection(db, collectionPath)), data);
   } catch (error) {
     console.error("Error adding document: ", error);
